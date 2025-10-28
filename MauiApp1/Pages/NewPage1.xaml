@@ -18,10 +18,26 @@
         <Button  Text="Home"  Clicked="Button_Clicked_Home"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        <ListView x:Name="Tablicka" SelectedItem="{Binding SelectedAuthor}">
-            <ListView.ItemTemplate>
+        <CarouselView x:Name="Tablicka" ItemsSource="{Binding SelectedAuthor}">
+            <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <StackLayout>
+                        <Frame HasShadow="True"
+                       BorderColor="DarkGray"
+                       CornerRadius="5"
+                       Margin="20"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand">
+                            <StackLayout>
+                                <Label Text="{Binding Id}"  Margin="10,0,5,0"/>
+                                <Label Text="{Binding Name}"  Margin="10,0,5,0"/>
+                                <Label Text="{Binding SecondName}"  Margin="10,0,5,0" />
+                                <Label Text="{Binding ThrityName}" Margin="10,0,5,0" />
+                                <Label Text="{Binding BirthDay, StringFormat='{0:dd.MM.yyy}'}" Margin="10,0,0,0"/>
+                            </StackLayout>
+                         </Frame>
+                    </StackLayout>
+                    <!--<ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="Изменить" Clicked="OnChangeClicked"/>
                             <MenuItem Text="Удалить" Clicked="OnDeleteClicked"/>
@@ -35,10 +51,10 @@
                                 <Label Text="{Binding BirthDay, StringFormat='{0:dd.MM.yyy}'}" Margin="10,0,0,0"/>
                             </StackLayout>
                         </ViewCell.View>
-                    </ViewCell>
+                    </ViewCell>-->
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
     </VerticalStackLayout>
     
 

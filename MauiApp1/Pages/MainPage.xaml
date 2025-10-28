@@ -17,10 +17,23 @@
             <Button  Text="перейти к списку фильмов"  Clicked="Button_Clicked_To_Page3"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        <ListView x:Name="MovieListTablichka" SelectedItem="{Binding SelectedMovie}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
+        <CollectionView x:Name="MovieListTablichka" SelectedItem="{Binding SelectedMovie}">
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding Id}"  Margin="10,0,5,0" Grid.Row="0"/>
+                            <Label Text="{Binding Name}"  Margin="10,0,5,0" Grid.Row="1"/>
+                            <Label Text="{Binding Description}"  Margin="10,0,5,0" Grid.Row="2"/>
+                            <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0" Grid.Row="3"/>
+                        </Grid>
+                        <!--<ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Изменить" Clicked="OnChangeClicked"/>
                                 <MenuItem Text="Удалить" Clicked="OnDeleteClicked"/>
@@ -33,10 +46,10 @@
                                     <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0"/>
                                 </StackLayout>
                             </ViewCell.View>
-                        </ViewCell>
+                        </ViewCell>-->
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     
 </ContentPage>
