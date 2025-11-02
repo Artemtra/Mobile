@@ -27,7 +27,21 @@ public partial class NewPage1 : ContentPage
         
         Tablichka();
     }
-   
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+
+        if (sender is Author model)
+        {
+            bool result = await DisplayAlert("Удаление", $"Вы уверены, что хотите удалить ?", "Да", "Нет");
+
+            if (result)
+            {
+                await db.DelAuthor(model.Id);
+            }
+            Tablichka();
+
+        }
+    }
     private async void OnChangeClicked(object sender, EventArgs e)
     {
 
@@ -46,20 +60,6 @@ public partial class NewPage1 : ContentPage
 
         Tablicka.ItemsSource = await db.GetAuthorList();
         OnPropertyChanged(nameof(db.GetMovieList));
-    }
-    private async void OnDeleteClicked(object sender, EventArgs e)
-    {
-
-        if (SelectedAuthor != null)
-        {
-            await db.DelAuthor(SelectedAuthor.Id);
-
-        }
-        else
-        {
-            await DisplayAlert("ОШИБКА МОЛОДОСТИ", "Не выбран айтем", "Емае");
-        }
-        Tablichka();
     }
    
     private void Button_Clicked_Author(object sender, EventArgs e)

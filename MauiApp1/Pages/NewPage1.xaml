@@ -18,40 +18,53 @@
         <Button  Text="Home"  Clicked="Button_Clicked_Home"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        <CarouselView x:Name="Tablicka" ItemsSource="{Binding SelectedAuthor}">
+        <CarouselView x:Name="Tablicka">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout>
-                        <Frame HasShadow="True"
-                       BorderColor="DarkGray"
-                       CornerRadius="5"
-                       Margin="20"
-                       HorizontalOptions="Center"
-                       VerticalOptions="CenterAndExpand">
+                    <Grid Padding="10">
+                        <Frame BackgroundColor="White"
+                        BorderColor="LightGray"
+                        CornerRadius="10"
+                        HasShadow="True"
+                        Padding="15">
                             <StackLayout>
-                                <Label Text="{Binding Id}"  Margin="10,0,5,0"/>
-                                <Label Text="{Binding Name}"  Margin="10,0,5,0"/>
-                                <Label Text="{Binding SecondName}"  Margin="10,0,5,0" />
-                                <Label Text="{Binding ThrityName}" Margin="10,0,5,0" />
-                                <Label Text="{Binding BirthDay, StringFormat='{0:dd.MM.yyy}'}" Margin="10,0,0,0"/>
+                            <Label Text="ID:" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding Id}" Margin="10,0,0,0" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <Label Text="Название:" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding Name}" Margin="10,0,0,0" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <Label  Text="Фамилия:" FontAttributes="Bold" TextColor="Black"/>
+                            <Label  Text="{Binding SecondName}" Margin="10,0,0,0" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <Label  Text="Отчество:" FontAttributes="Bold" TextColor="Black"/>
+                            <Label   Text="{Binding ThrityName}" Margin="10,0,0,0" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <Label Grid.Column="0" Text="Дата:" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Grid.Column="0" Text="{Binding BirthDay, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
                             </StackLayout>
-                         </Frame>
-                    </StackLayout>
-                    <!--<ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Изменить" Clicked="OnChangeClicked"/>
-                            <MenuItem Text="Удалить" Clicked="OnDeleteClicked"/>
-                        </ViewCell.ContextActions>
-                        <ViewCell.View>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Id}"  Margin="10,0,5,0"/>
-                                <Label Text="{Binding Name}"  Margin="10,0,5,0"/>
-                                <Label Text="{Binding SecondName}"  Margin="10,0,5,0" />
-                                <Label Text="{Binding ThrityName}" Margin="10,0,5,0" />
-                                <Label Text="{Binding BirthDay, StringFormat='{0:dd.MM.yyy}'}" Margin="10,0,0,0"/>
-                            </StackLayout>
-                        </ViewCell.View>
-                    </ViewCell>-->
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>

@@ -9,64 +9,122 @@ namespace MauiApp1.Pages;
 public partial class NewPage2 : ContentPage
 {
     DBFile db = new DBFile();
-   Movies SelectedMovies = new Movies();
-    Author SelectedAuthor = new Author();
-    
+    private ListMovies _selectedMovieAuthor;
+    private Author _selectedAuthor;
+    private Movies _selectedMovie;
 
     public NewPage2()
-	{
+    {
         InitializeComponent();
+        BindingContext = this;
         Tablichka();
     }
+
+    // Свойства для привязки - ИСПРАВЛЕНО: ListMoviess теперь заполняется
+    public List<ListMovies> ListMoviess { get; private set; }
+    public List<Author> AuthorList { get; private set; }
+    public List<Movies> MovieList { get; private set; }
+
+    public ListMovies SelectedMovieAuthor
+    {
+        get => _selectedMovieAuthor;
+        set
+        {
+            _selectedMovieAuthor = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public Author SelectedAuthor
+    {
+        get => _selectedAuthor;
+        set
+        {
+            if (_selectedAuthor != value)
+            {
+                _selectedAuthor = value;
+                OnPropertyChanged(nameof(SelectedAuthor));
+            }
+        }
+    }
+
+    public Movies SelectedMovie
+    {
+        get => _selectedMovie;
+        set
+        {
+            if (_selectedMovie != value)
+            {
+                _selectedMovie = value;
+                OnPropertyChanged(nameof(SelectedMovie));
+            }
+        }
+    }
+
     public async void SaveAuthor()
     {
-        await db.ListMoviesAdd(SelectedAuthor.Id, SelectedMovies.Id);
+        if (SelectedAuthor == null || SelectedMovie == null)
+        {
+            await DisplayAlert("Ошибка", "Выберите автора и фильм", "OK");
+            return;
+        }
 
+        await db.ListMoviesAdd(SelectedAuthor.Id, SelectedMovie.Id);
+        
+        // Сбрасываем выбор после сохранения
+        SelectedAuthor = null;
+        SelectedMovie = null;
         Tablichka();
     }
-    
+
     public async void Tablichka()
     {
-        PickerAuthor.ItemsSource = await db.GetAuthorList();
-        PickerMovie.ItemsSource = await db.GetMovieList();
-        tablichka.ItemsSource = await db.GetMovieAuthorList();
-        OnPropertyChanged(nameof(db.GetMovieAuthorList));
-        OnPropertyChanged(nameof(db.GetMovieList));
-    }
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        await Navigation.PushModalAsync(new MainPage());
+        try
+        {
+            AuthorList = await db.GetAuthorList();
+            MovieList = await db.GetMovieList();
+            ListMoviess = await db.GetMovieAuthorList();
+
+            OnPropertyChanged(nameof(AuthorList));
+            OnPropertyChanged(nameof(MovieList));
+            OnPropertyChanged(nameof(ListMoviess));
+
+            PickerAuthor.ItemsSource = AuthorList;
+            PickerMovie.ItemsSource = MovieList;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ошибка", $"Ошибка загрузки данных: {ex.Message}", "OK");
+        }
     }
 
     private void Button_Clicked_Save(object sender, EventArgs e)
     {
         SaveAuthor();
     }
+
     private async void OnChangeClicked(object sender, EventArgs e)
     {
-
-        if (SelectedMovies != null)
+        if (SelectedMovieAuthor != null)
         {
-            
+
         }
         else
         {
-            await DisplayAlert("ОШИБКА МОЛОДОСТИ", "Не выбран айтем", "Емае");
+            await DisplayAlert("Ошибка", "Не выбран элемент", "OK");
         }
         Tablichka();
     }
-   
+
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
-
-        if (SelectedMovies != null)
+        if (SelectedMovieAuthor != null)
         {
-           
 
         }
         else
         {
-            await DisplayAlert("ОШИБКА МОЛОДОСТИ", "Не выбран айтем", "Емае");
+            await DisplayAlert("Ошибка", "Не выбран элемент", "OK");
         }
         Tablichka();
     }

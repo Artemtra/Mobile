@@ -31,13 +31,23 @@ namespace MauiApp1.DB
             movies.Id = ints[2];
             movies.IdAuthor = idAuthor;
             movies.IdMovies = idMovies;
-        
-                
-            
+
             listMovies.Add(movies);
+
+            ints[2] = ints[2] + 1;
+
             await SaveFileListMovie();
             await SaveFileDiscriminant();
-            ints[2] = ints[2] + 1;
+            //ListMovies movies = new ListMovies();
+            //movies.Id = ints[2];
+            //movies.IdAuthor = idAuthor;
+            //movies.IdMovies = idMovies;
+
+            //ints[2] = ints[2] + 1;
+            //listMovies.Add(movies);
+            //await SaveFileListMovie();
+            //await SaveFileDiscriminant();
+
         }
 
         public async Task ListMoviesChange(int id ,int idAuthor, int idMovies)
@@ -149,23 +159,21 @@ namespace MauiApp1.DB
 
         }
 
-        public  async Task<List<Author>> GetAuthorList()
-        {
-         await Task.Delay(1000);
-         return authorList.ToList();
-
-        }
-        public async  Task<List<Movies>> GetMovieList()
+        public async Task<List<ListMovies>> GetMovieAuthorList()
         {
             await Task.Delay(1000);
-            return moviesList.ToList();
-
+            return listMovies.ToList();
         }
-        public async Task<IReadOnlyList<ListMovies>> GetMovieAuthorList()
+        public async Task<List<Author>> GetAuthorList()
         {
             await Task.Delay(1000);
-            return listMovies;
+            return authorList.ToList();
+        }
 
+        public async Task<List<Movies>> GetMovieList()
+        {
+            await Task.Delay(1000);
+            return moviesList;
         }
 
         public async Task DelAuthor(int id)
