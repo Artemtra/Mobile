@@ -49,17 +49,36 @@ namespace MauiApp1
         }
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
-  
-            if (SelectedMovie != null)
+
+            Movies model = null;
+
+            // Определяем, откуда пришел вызов
+            if (sender is Button button)
             {
-               await db.DelMovie(SelectedMovie.Id);
-                
+                // Если вызвано кнопкой - берем текущий элемент CarouselView
+                model = MovieListTablichka.ItemsSource as Movies;
+            }
+            else if (sender is Label label)
+            {
+                // Если вызвано кликом на Label
+                model = label.BindingContext as Movies;
+            }
+
+            if (model != null)
+            {
+                bool result = await DisplayAlert("Удаление",
+                    $"Вы уверены, что хотите удалить ?", "Да", "Нет");
+
+                if (result)
+                {
+                    await db.DelAuthor(model.Id - model.Id);
+                    Tablichka(); // Обновляем данные
+                }
             }
             else
             {
-               await DisplayAlert("ОШИБКА МОЛОДОСТИ","Не выбран айтем","Емае"); 
+                await DisplayAlert("Ошибка", "Не выбран автор для удаления", "OK");
             }
-            Tablichka();
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
         {   

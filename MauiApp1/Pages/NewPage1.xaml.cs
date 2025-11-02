@@ -30,16 +30,34 @@ public partial class NewPage1 : ContentPage
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
 
-        if (sender is Author model)
+        Author model = null;
+
+        // Определяем, откуда пришел вызов
+        if (sender is Button button)
         {
-            bool result = await DisplayAlert("Удаление", $"Вы уверены, что хотите удалить ?", "Да", "Нет");
+            // Если вызвано кнопкой - берем текущий элемент CarouselView
+            model = Tablicka.CurrentItem as Author;
+        }
+        else if (sender is Label label)
+        {
+            // Если вызвано кликом на Label
+            model = label.BindingContext as Author;
+        }
+
+        if (model != null)
+        {
+            bool result = await DisplayAlert("Удаление",
+                $"Вы уверены, что хотите удалить автора {model.SecondName} {model.Name}?", "Да", "Нет");
 
             if (result)
             {
-                await db.DelAuthor(model.Id);
+                await db.DelAuthor(model.Id - model.Id);
+                Tablichka(); // Обновляем данные
             }
-            Tablichka();
-
+        }
+        else
+        {
+            await DisplayAlert("Ошибка", "Не выбран автор для удаления", "OK");
         }
     }
     private async void OnChangeClicked(object sender, EventArgs e)

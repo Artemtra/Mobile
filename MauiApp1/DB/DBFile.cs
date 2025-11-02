@@ -179,7 +179,7 @@ namespace MauiApp1.DB
         public async Task DelAuthor(int id)
         {
         
-            authorList.RemoveAt(id);
+            authorList.RemoveAt(id- id);
             await SaveFileAuthor();
         }
         public async Task DelMovie(int id)
