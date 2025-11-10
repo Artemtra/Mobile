@@ -10,13 +10,21 @@
             <Entry  x:Name="TitleText"/>
             <Label Text="Описание"/>
             <Entry x:Name="DiscriptionText"/>
-            <Label Text="Дата выхода"/>
-            <DatePicker  x:Name="DiscriptionDate"/>
-            <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
+        <Label Text="Рейтинг" />
+        <Stepper  Maximum="5" Minimum="0" Increment="0.1" Value="{Binding OcenochkaReal}"  />
+        <Label  Text="{Binding OcenochkaReal}"/>
+        <Label Text="Жанр"/>
+        <Picker ItemsSource="{Binding Genres}" x:Name="GenreList"/>
+        
+        <Label Text="Дата выхода"/>
+        <DatePicker  x:Name="DiscriptionDate"/>
+        <Label Text="Минуты"/>
+        <Slider Minimum="0" Maximum="360" x:Name="SliderMinutes"/>
+        <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
             <Button Text="перейти к авторам" Clicked="Button_Clicked_To_Page2"/>
             <Button  Text="перейти к списку фильмов"  Clicked="Button_Clicked_To_Page3"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
-        <Button Text="Удалить" Clicked="OnDeleteClicked"/>
+
         <CollectionView x:Name="MovieListTablichka" SelectedItem="{Binding SelectedMovie}">
                 <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -27,16 +35,51 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+
+                        </Grid.RowDefinitions>
                         <Label Text="{Binding Id}"  Margin="10,0,5,0" Grid.Row="0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
                             </Label.GestureRecognizers>
                         </Label>
-                            <Label Text="{Binding Name}"  Margin="10,0,5,0" Grid.Row="1"/>
-                            <Label Text="{Binding Description}"  Margin="10,0,5,0" Grid.Row="2"/>
-                            <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0" Grid.Row="3"/>
-                        </Grid>
+                            <Label Text="{Binding Name}"  Margin="10,0,5,0" Grid.Row="1">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label Text="{Binding Description}"  Margin="10,0,5,0" Grid.Row="2">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0" Grid.Row="3">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label Text="{Binding Ocenochka}"  Margin="10,0,5,0" Grid.Row="4">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="{Binding Genre}"  Margin="10,0,5,0" Grid.Row="5">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="{Binding Minutes}"  Margin="10,0,5,0" Grid.Row="6">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Grid>
                         <!--<ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Изменить" Clicked="OnChangeClicked"/>

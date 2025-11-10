@@ -13,7 +13,7 @@
         <Label Text="Фильмы"/>
         <Picker x:Name="PickerMovie" SelectedItem="{Binding SelectedMovie}"  ItemDisplayBinding="{Binding Name}" />
         <Button  Text="Сохранить"  Clicked="Button_Clicked_Save"/>
-        <!--<Button  Text="Home"  Clicked="Button_Clicked"/>-->
+        <Button  Text="Home"  Clicked="Button_Clicked"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
         <ListView ItemsSource="{Binding ListMovie}" x:Name="tablichka" 

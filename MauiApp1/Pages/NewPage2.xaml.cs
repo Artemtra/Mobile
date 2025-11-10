@@ -128,4 +128,9 @@ public partial class NewPage2 : ContentPage
         }
         Tablichka();
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new MainPage());
+    }
 }

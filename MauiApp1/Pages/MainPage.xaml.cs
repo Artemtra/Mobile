@@ -3,12 +3,17 @@ using MauiApp1.Models;
 using MauiApp1.Pages;
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using System.Threading.Tasks;
+
 
 namespace MauiApp1
 {
     public partial class MainPage : ContentPage
     {
-        DBFile db = new DBFile();
+        public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
+         
+       public double OcenochkaReal {  get; set; }
+       DBFile db = new DBFile();
         public Movies SelectedMovie { get; set; }
         public MainPage()
         {
@@ -17,13 +22,13 @@ namespace MauiApp1
             db.LoadFileMovie();
             Tablichka();
         }
-        public void SaveMovie()
+        public async void SaveMovie()
         {
-            db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date);
+           await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, OcenochkaReal, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
             Tablichka();
             
         }
-  
+        
         public  async void Tablichka()
         {
             
@@ -39,7 +44,7 @@ namespace MauiApp1
            
             if (SelectedMovie != null)
             {
-                await db.ChangeMovie(SelectedMovie.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date);
+                await db.ChangeMovie(SelectedMovie.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, OcenochkaReal, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
             }
             else
             {
@@ -52,15 +57,14 @@ namespace MauiApp1
 
             Movies model = null;
 
-            // Определяем, откуда пришел вызов
             if (sender is Button button)
             {
-                // Если вызвано кнопкой - берем текущий элемент CarouselView
+              
                 model = MovieListTablichka.ItemsSource as Movies;
             }
             else if (sender is Label label)
             {
-                // Если вызвано кликом на Label
+               
                 model = label.BindingContext as Movies;
             }
 
@@ -72,7 +76,7 @@ namespace MauiApp1
                 if (result)
                 {
                     await db.DelAuthor(model.Id - model.Id);
-                    Tablichka(); // Обновляем данные
+                    Tablichka(); 
                 }
             }
             else

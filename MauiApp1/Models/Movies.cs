@@ -14,6 +14,14 @@ namespace MauiApp1.Models
         public string Description { get; set; }
 
         public DateTime Date { get; set; }
-        
+
+        public double Ocenochka { get; set; }
+
+        public string Genre { get; set; }
+
+        public double Minutes { get; set; }
+
+
+
     }
 }

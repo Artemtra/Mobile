@@ -32,15 +32,14 @@ public partial class NewPage1 : ContentPage
 
         Author model = null;
 
-        // Определяем, откуда пришел вызов
         if (sender is Button button)
         {
-            // Если вызвано кнопкой - берем текущий элемент CarouselView
+        
             model = Tablicka.CurrentItem as Author;
         }
         else if (sender is Label label)
         {
-            // Если вызвано кликом на Label
+         
             model = label.BindingContext as Author;
         }
 
@@ -52,7 +51,7 @@ public partial class NewPage1 : ContentPage
             if (result)
             {
                 await db.DelAuthor(model.Id - model.Id);
-                Tablichka(); // Обновляем данные
+                Tablichka();
             }
         }
         else
