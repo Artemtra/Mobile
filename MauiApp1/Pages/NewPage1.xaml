@@ -4,7 +4,7 @@
              x:Class="MauiApp1.NewPage1"
              Title="NewPage1">
 
-    
+    <ScrollView>
         <VerticalStackLayout>
         <Label Text="Имя" />
         <Entry  x:Name="Name"/>
@@ -14,6 +14,16 @@
         <Entry x:Name="ThirtyName" />
         <Label Text="День рождения"/>
         <DatePicker x:Name="BirthDayText"/>
+        <Label Text="Оценочка"/>
+        <Stepper Maximum="5" Minimum="0" Increment="0.1" Value="{Binding OcenochkaReal}"/>
+        <Label Text="Пол" />
+        <Picker x:Name="gender" ItemsSource="{Binding Genres}" />
+        <Label Text="Духовное состояние"/>
+        <Switch x:Name="LiveOrDie"/>
+
+
+
+
         <Button  Text="Сохранить" Clicked="Button_Clicked_Author"/>
         <Button  Text="Home"  Clicked="Button_Clicked_Home"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
@@ -62,6 +72,24 @@
                                         <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
                                 </Label.GestureRecognizers>
                             </Label>
+                                <Label  Text="Пол:" FontAttributes="Bold" TextColor="Black"/>
+                                <Label   Text="{Binding Gender}" Margin="10,0,0,0" TextColor="Black">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label  Text="Оценка:" FontAttributes="Bold" TextColor="Black"/>
+                                <Label   Text="{Binding Ocenochka}" Margin="10,0,0,0" TextColor="Black">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label  Text="Жив Или Нет:" FontAttributes="Bold" TextColor="Black"/>
+                                <Label   Text="{Binding IsAlive}" Margin="10,0,0,0" TextColor="Black">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDeleteClicked" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
                         </Frame>
                     </Grid>
@@ -69,6 +97,6 @@
             </CarouselView.ItemTemplate>
         </CarouselView>
     </VerticalStackLayout>
-    
 
+    </ScrollView>
 </ContentPage>

@@ -10,6 +10,8 @@ namespace MauiApp1;
 
 public partial class NewPage1 : ContentPage
 {
+    public List<string> Genres { get; set; } = new List<string> { "Мужик", "ЖЕНЩИНА" };
+    public double OcenochkaReal { get; set; }
     DBFile db = new DBFile();
     public Author SelectedAuthor { get; set; }
     public NewPage1()
@@ -23,7 +25,7 @@ public partial class NewPage1 : ContentPage
     }
     public  async Task SaveAuthor()
     {
-      await  db.AddAuthor(Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date);
+      await  db.AddAuthor(Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), OcenochkaReal, LiveOrDie.IsToggled);
         
         Tablichka();
     }
@@ -64,7 +66,7 @@ public partial class NewPage1 : ContentPage
 
         if (SelectedAuthor != null)
         {
-            await db.ChangeAuthor(SelectedAuthor.Id, Name.Text, SecondName.Text, ThirtyName.Text ,BirthDayText.Date);
+            await db.ChangeAuthor(SelectedAuthor.Id, Name.Text, SecondName.Text, ThirtyName.Text ,BirthDayText.Date,gender.SelectedItem.ToString(), OcenochkaReal, LiveOrDie.IsToggled);
         }
         else
         {

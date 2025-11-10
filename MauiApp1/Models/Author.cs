@@ -17,7 +17,9 @@ namespace MauiApp1.Models
 
          public DateTime BirthDay { get; set; }
         public double Ocenochka { get; set; }
-        public bool Gender {  get; set; }
+        public string Gender {  get; set; }
+        public bool IsAlive { get; set; }
+
 
     }
 }

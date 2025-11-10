@@ -1,4 +1,5 @@
 ﻿
+
 using MauiApp1.Models;
 using System;
 using System.Collections.Generic;
@@ -91,6 +92,7 @@ namespace MauiApp1.DB
             movies.Genre = genre;
             movies.Minutes = minutes;
             movies.Ocenochka = ocenochka;
+
             int a = 0;
             int b = 0;
             foreach (Movies author in moviesList)
@@ -108,7 +110,7 @@ namespace MauiApp1.DB
             await SaveFileMovie();
 
         }
-        public async Task ChangeAuthor(int id, string name, string secondName, string thrityName, DateTime birthDay)
+        public async Task ChangeAuthor(int id, string name, string secondName, string thrityName, DateTime birthDay, string gender, double ocenochka,bool isalive)
         {
             int a = 0;
             int b = 0;
@@ -118,6 +120,9 @@ namespace MauiApp1.DB
             authors.SecondName = secondName;
             authors.BirthDay = birthDay;
             authors.ThrityName = thrityName;
+            authors.Gender = gender;
+            authors.Ocenochka = ocenochka;
+            authors.IsAlive = isalive;
             foreach (Author author in authorList)
             {
 
@@ -195,7 +200,7 @@ namespace MauiApp1.DB
 
 
 
-        public async Task AddAuthor(string name, string secondName, string thrityName, DateTime birthDay)
+        public async Task AddAuthor(string name, string secondName, string thrityName, DateTime birthDay , string gender ,double ocenochka,bool isalive)
         {
             Author author = new Author();
             author.Id = ints[0];
@@ -203,6 +208,9 @@ namespace MauiApp1.DB
             author.SecondName = secondName;
             author.ThrityName = thrityName;
             author.BirthDay = birthDay;
+            author.Gender = gender;
+            author.Ocenochka = ocenochka;
+            author.IsAlive = isalive;
             authorList.Add(author);
             ints[0] = ints[0] + 1;
             await SaveFileDiscriminant();
@@ -286,7 +294,7 @@ namespace MauiApp1.DB
         public async Task SaveFileAuthor()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "author2.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "author3.db");
             using (FileStream outputStream = File.Create(targetFile))
             {
                 await JsonSerializer.SerializeAsync(outputStream, authorList);
@@ -296,7 +304,7 @@ namespace MauiApp1.DB
         public async Task LoadFileAuthor()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "author2.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "author3.db");
             if (File.Exists(targetFile))
             {
                 string a = await File.ReadAllTextAsync(targetFile);
