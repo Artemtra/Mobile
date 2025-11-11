@@ -16,17 +16,16 @@
         <Button  Text="Home"  Clicked="Button_Clicked"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        <ListView ItemsSource="{Binding ListMovie}" x:Name="tablichka" 
-          SelectedItem="{Binding SelectedMovieAuthor}">
+        <ListView ItemsSource="{Binding mainTablichka}"  >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Title}" Margin="10,0,5,5"/>
-                                <Label Text="{Binding FirstName}" Margin="10,0,5,5" />
-                                <Label Text="{Binding SecondName}" Margin="10,0,5,5" />
-                                <Label Text="{Binding LastName}" Margin="10,0,5,5" />
+                                <Label Text="{Binding author.Name}" Margin="10,0,5,5"/>
+                                <Label Text="{Binding author.SecondName}" Margin="10,0,5,5" />
+                                <Label Text="{Binding author.ThrityName}" Margin="10,0,5,5" />
+                                <Label Text="{Binding movies.Name}" Margin="10,0,5,5" />
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>

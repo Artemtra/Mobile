@@ -13,8 +13,8 @@ namespace MauiApp1.DB
     public class DBFile
     {
         private List<Author> authorList = new List<Author>();
-        private List<Movies> moviesList = new List<Movies>();
-        private List<ListMovies> listMovies = new List<ListMovies>();
+        private List<Movie> moviesList = new List<Movie>();
+        private List<MoviesAuthors> listMovies = new List<MoviesAuthors>();
         private List<int> ints = new List<int> { 0, 0, 0 };
 
 
@@ -28,10 +28,10 @@ namespace MauiApp1.DB
 
         public async Task ListMoviesAdd(int idAuthor, int idMovies)
         {
-            ListMovies movies = new ListMovies();
+            MoviesAuthors movies = new MoviesAuthors();
             movies.Id = ints[2];
             movies.IdAuthor = idAuthor;
-            movies.IdMovies = idMovies;
+            movies.IdMovie = idMovies;
 
             listMovies.Add(movies);
 
@@ -53,10 +53,10 @@ namespace MauiApp1.DB
 
         public async Task ListMoviesChange(int id, int idAuthor, int idMovies)
         {
-            ListMovies movies = new ListMovies();
+            MoviesAuthors movies = new MoviesAuthors();
             movies.Id = id;
             movies.IdAuthor = idAuthor;
-            movies.IdMovies = idMovies;
+            movies.IdMovie = idMovies;
 
 
             listMovies.Insert(id, movies);
@@ -67,8 +67,8 @@ namespace MauiApp1.DB
         }
         public async Task ListMoviesDel(int id)
         {
-            Movies movies = new Movies();
-            foreach (Movies author in moviesList)
+            Movie movies = new Movie();
+            foreach (Movie author in moviesList)
             {
 
                 if (author.Id == id)
@@ -84,7 +84,7 @@ namespace MauiApp1.DB
         }
         public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes)
         {
-            Movies movies = new Movies();
+            Movie movies = new Movie();
             movies.Id = id;
             movies.Name = name;
             movies.Description = description;
@@ -95,7 +95,7 @@ namespace MauiApp1.DB
 
             int a = 0;
             int b = 0;
-            foreach (Movies author in moviesList)
+            foreach (Movie author in moviesList)
             {
 
                 if (author.Id == id)
@@ -167,7 +167,7 @@ namespace MauiApp1.DB
 
         }
 
-        public async Task<List<ListMovies>> GetMovieAuthorList()
+        public async Task<List<MoviesAuthors>> GetMovieAuthorList()
         {
             await Task.Delay(1000);
             return listMovies.ToList();
@@ -178,7 +178,7 @@ namespace MauiApp1.DB
             return authorList.ToList();
         }
 
-        public async Task<List<Movies>> GetMovieList()
+        public async Task<List<Movie>> GetMovieList()
         {
             await Task.Delay(1000);
             return moviesList;
@@ -218,7 +218,7 @@ namespace MauiApp1.DB
         }
         public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes)
         {
-            Movies movies = new Movies();
+            Movie movies = new Movie();
             movies.Id = ints[1];
             movies.Name = name;
             movies.Description = description;
@@ -234,7 +234,7 @@ namespace MauiApp1.DB
         public async Task AddMoviesList(int IdAuthor, int IdMovies, string Title, string FirstName, string LastName, string SecondName)
         {
 
-            ListMovies listMoviesAdd = new ListMovies();
+            MoviesAuthors listMoviesAdd = new MoviesAuthors();
 
 
             listMovies.Add(listMoviesAdd);
@@ -263,7 +263,7 @@ namespace MauiApp1.DB
             if (File.Exists(targetFile))
             {
                 string a = await File.ReadAllTextAsync(targetFile);
-                moviesList = JsonSerializer.Deserialize<List<Movies>>(a);
+                moviesList = JsonSerializer.Deserialize<List<Movie>>(a);
 
             }
 
@@ -286,7 +286,7 @@ namespace MauiApp1.DB
             if (File.Exists(targetFile))
             {
                 string a = await File.ReadAllTextAsync(targetFile);
-                listMovies = JsonSerializer.Deserialize<List<ListMovies>>(a);
+                listMovies = JsonSerializer.Deserialize<List<MoviesAuthors>>(a);
 
             }
 

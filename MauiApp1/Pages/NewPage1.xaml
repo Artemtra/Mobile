@@ -28,7 +28,7 @@
         <Button  Text="Home"  Clicked="Button_Clicked_Home"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        <CarouselView x:Name="Tablicka">
+            <CarouselView x:Name="Tablicka" CurrentItem="{Binding SelectedAuthor}"  >
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">

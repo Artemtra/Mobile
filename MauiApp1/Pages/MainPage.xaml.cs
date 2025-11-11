@@ -14,7 +14,7 @@ namespace MauiApp1
          
        public double OcenochkaReal {  get; set; }
        DBFile db = new DBFile();
-        public Movies SelectedMovie { get; set; }
+        public Movie SelectedMovie { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -55,17 +55,17 @@ namespace MauiApp1
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
 
-            Movies model = null;
+            Movie model = null;
 
             if (sender is Button button)
             {
               
-                model = MovieListTablichka.ItemsSource as Movies;
+                model = MovieListTablichka.ItemsSource as Movie;
             }
             else if (sender is Label label)
             {
                
-                model = label.BindingContext as Movies;
+                model = label.BindingContext as Movie;
             }
 
             if (model != null)

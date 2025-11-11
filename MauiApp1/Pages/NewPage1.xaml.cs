@@ -23,7 +23,7 @@ public partial class NewPage1 : ContentPage
         Tablichka();
 
     }
-    public  async Task SaveAuthor()
+    public  async void SaveAuthor()
     {
       await  db.AddAuthor(Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), OcenochkaReal, LiveOrDie.IsToggled);
         
@@ -62,8 +62,7 @@ public partial class NewPage1 : ContentPage
         }
     }
     private async void OnChangeClicked(object sender, EventArgs e)
-    {
-
+    { 
         if (SelectedAuthor != null)
         {
             await db.ChangeAuthor(SelectedAuthor.Id, Name.Text, SecondName.Text, ThirtyName.Text ,BirthDayText.Date,gender.SelectedItem.ToString(), OcenochkaReal, LiveOrDie.IsToggled);
