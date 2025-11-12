@@ -86,11 +86,11 @@ namespace MauiApp1
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
         {   
-            await Navigation.PushModalAsync(new NewPage1());
+            await Navigation.PushModalAsync(new NewPage1(db));
         }
         public async void Button_Clicked_To_Page3(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewPage2());
+            await Navigation.PushModalAsync(new NewPage2(db));
         }
     }
 

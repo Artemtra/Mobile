@@ -58,7 +58,6 @@ namespace MauiApp1.DB
             movies.IdAuthor = idAuthor;
             movies.IdMovie = idMovies;
 
-
             listMovies.Insert(id, movies);
 
             await SaveFileListMovie();
@@ -142,6 +141,8 @@ namespace MauiApp1.DB
             await LoadDiscriminant();
             await LoadFileAuthor();
             await LoadFileMovie();
+            await LoadFileListMovie();
+
         }
 
         public async Task SaveFileDiscriminant()
@@ -152,7 +153,6 @@ namespace MauiApp1.DB
             {
                 await JsonSerializer.SerializeAsync(outputStream, ints);
             }
-            LoadDis();
         }
         public async Task LoadDiscriminant()
         {
@@ -253,7 +253,6 @@ namespace MauiApp1.DB
             {
                 await JsonSerializer.SerializeAsync(outputStream, moviesList);
             }
-            LoadDis();
         }
 
         public async Task LoadFileMovie()
@@ -276,7 +275,6 @@ namespace MauiApp1.DB
             {
                 await JsonSerializer.SerializeAsync(outputStream, listMovies);
             }
-            LoadDis();
         }
 
         public async Task LoadFileListMovie()
@@ -314,6 +312,7 @@ namespace MauiApp1.DB
             }
 
         }
+
 
     }
 }

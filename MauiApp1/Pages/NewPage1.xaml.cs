@@ -12,14 +12,13 @@ public partial class NewPage1 : ContentPage
 {
     public List<string> Genres { get; set; } = new List<string> { "Мужик", "ЖЕНЩИНА" };
     public double OcenochkaReal { get; set; }
-    DBFile db = new DBFile();
+    DBFile db;
     public Author SelectedAuthor { get; set; }
-    public NewPage1()
+    public NewPage1(DBFile db)
 	{
 		InitializeComponent();
         BindingContext = this;
-
-        db.LoadFileAuthor();
+        this.db = db;
         Tablichka();
 
     }

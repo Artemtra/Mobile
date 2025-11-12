@@ -7,30 +7,34 @@ using System.Xml.Linq;
 namespace MauiApp1.Pages;
 public partial class NewPage2 : ContentPage
 {
-    public List<MoviesAuthors> mainTablichka { get; set; }
-    DBFile db = new DBFile();
+    public ObservableCollection<MoviesAuthors> MainTablichka { get; set; } = new ObservableCollection<MoviesAuthors>();
+    DBFile db;
     private MoviesAuthors _selectedMovieAuthor;
     private Author _selectedAuthor;
     private Movie _selectedMovie;
 
-    public NewPage2()
+    public NewPage2(DBFile db)
     {
         InitializeComponent();
-        BindingContext = this;
+        this.db = db;
         Tablichka();
+        BindingContext = this;
     }
 
-   
-    public List<MoviesAuthors> ListMoviess { get;  set; } 
-    public List<Author> AuthorList { get;  set; }
-    public List<Movie> MovieList { get;  set; }
-    public async void  CraftTablichka()
-    {
+
+    public List<MoviesAuthors> ListMoviess { get; set; }
+    public List<Author> AuthorList { get; set; }
+    public List<Movie> MovieList { get; set; }
+    public void CraftTablichka()
+    {     
         MoviesAuthors listMovies = new MoviesAuthors();
-        if(ListMoviess != null) 
-        { 
+        if (ListMoviess == null || ListMoviess.Count == 0)
+        {
+            return;
+        }
         foreach (var item in ListMoviess)
         {
+
 
             foreach (var author in AuthorList)
             {
@@ -46,18 +50,13 @@ public partial class NewPage2 : ContentPage
                     listMovies.Movie = author;
                 }
             }
-        }
-
-
-
-
-
-
 
         }
-        mainTablichka.Add(listMovies);
+        MainTablichka.Add(listMovies);
+        OnPropertyChanged(nameof(MainTablichka));     
+
     }
-   
+
     public MoviesAuthors SelectedMovieAuthor
     {
         get => _selectedMovieAuthor;
@@ -103,8 +102,8 @@ public partial class NewPage2 : ContentPage
         }
 
         await db.ListMoviesAdd(SelectedAuthor.Id, SelectedMovie.Id);
-        
-       
+
+
         SelectedAuthor = null;
         SelectedMovie = null;
         Tablichka();
@@ -114,17 +113,20 @@ public partial class NewPage2 : ContentPage
     {
         try
         {
-            AuthorList = await db.GetAuthorList();
-            MovieList = await db.GetMovieList();
-            ListMoviess = await db.GetMovieAuthorList();
+            var getMovewAuthorListTask = db.GetMovieAuthorList();
+            var getMoviesTask = db.GetMovieList();
+            var getAuthorsTask = db.GetAuthorList();
+            AuthorList = await getAuthorsTask;
+            MovieList = await getMoviesTask;
+            ListMoviess = await getMovewAuthorListTask;
             PickerAuthor.ItemsSource = AuthorList;
             PickerMovie.ItemsSource = MovieList;
             CraftTablichka();
             OnPropertyChanged(nameof(AuthorList));
             OnPropertyChanged(nameof(MovieList));
             OnPropertyChanged(nameof(ListMoviess));
-            OnPropertyChanged(nameof(mainTablichka));
-          
+            OnPropertyChanged(nameof(MainTablichka));
+
         }
         catch (Exception ex)
         {
@@ -147,7 +149,7 @@ public partial class NewPage2 : ContentPage
         {
             await DisplayAlert("Ошибка", "Не выбран элемент", "OK");
         }
-         Tablichka();
+        Tablichka();
     }
 
     private async void OnDeleteClicked(object sender, EventArgs e)
